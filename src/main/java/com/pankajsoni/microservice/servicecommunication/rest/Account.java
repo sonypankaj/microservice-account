@@ -1,10 +1,10 @@
-package com.pankajsoni.microservice.servicecommunication.rest;;
+package com.pankajsoni.microservice.servicecommunication.rest;
 
 public class Account {
 
 	private long id;
-	
-	private double balance ;
+
+	private double balance;
 
 	public long getId() {
 		return id;
@@ -20,8 +20,6 @@ public class Account {
 
 	public void setBalance(double balance) {
 		this.balance = balance;
-	} 
-
-	
+	}
 
 }

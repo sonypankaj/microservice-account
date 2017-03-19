@@ -22,23 +22,17 @@ public class AccountRest {
 		accounts1.setId(1);
 		accounts1.setBalance(10000);
 
-		
 		Account accounts2 = new Account();
 		accounts2.setId(2);
 		accounts2.setBalance(20000);
 
-		
-		
 		Account accounts3 = new Account();
 		accounts3.setId(3);
 		accounts3.setBalance(30000);
 
-		
-		
 		Account accounts4 = new Account();
 		accounts4.setId(4);
 		accounts4.setBalance(40000);
-
 
 		accountList.add(accounts1);
 		accountList.add(accounts2);
