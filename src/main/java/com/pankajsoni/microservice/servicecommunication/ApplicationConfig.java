@@ -12,7 +12,7 @@ public class ApplicationConfig {
 	static class JerseyConfig extends ResourceConfig {
 		public JerseyConfig() {
 			this.packages("com.pankajsoni.microservice.servicecommunication.rest");
-			
+
 		}
 	}
 

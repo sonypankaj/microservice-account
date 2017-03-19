@@ -24,7 +24,7 @@ public class AccountRest {
 
 		Account accounts2 = new Account();
 		accounts2.setId(2);
-		accounts2.setBalance(20000);
+		accounts2.setBalance(40000);
 
 		Account accounts3 = new Account();
 		accounts3.setId(3);
