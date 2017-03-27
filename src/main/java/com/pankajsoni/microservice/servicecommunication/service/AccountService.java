@@ -10,5 +10,6 @@ public interface AccountService {
 	public Account createAccount(Account account) ;
 	public Account updateAccount(Account account) ;
 	public Account deleteAccount(long accountNumber) ;
+	public List<Account> getAccountByName(String name);
 
 }

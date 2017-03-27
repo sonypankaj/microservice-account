@@ -4,26 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.pankajsoni.microservice.servicecommunication.entity.AccountEntity;
 import com.pankajsoni.microservice.servicecommunication.entity.AccountRepository;
 import com.pankajsoni.microservice.servicecommunication.rest.Account;
 
+@Component
 public class AccountServicePersistentImpl implements AccountService {
 
 	@Autowired
 	AccountRepository accountRepository;
+	
+	AccountServicePersistentImpl(AccountRepository accountRepository){
+		this.accountRepository = accountRepository ;
+	}
 
 	public void createDummyAccounts() {
 
 		AccountEntity accounts = new AccountEntity("Pankaj Soni", "Aundh", 1000);
 		accountRepository.save(accounts);
-		accounts = new AccountEntity("Madhur Sambhar", "Aundh", 2000);
-		accountRepository.save(accounts);
-		accounts = new AccountEntity("Harsh Agrawal", "Baner", 4000);
-		accountRepository.save(accounts);
-		accounts = new AccountEntity("Shital Agarkar ", "Baner", 10000); //10000 as she works for NICE
-		accountRepository.save(accounts);
+		AccountEntity account2 = new AccountEntity("Madhur Sambhar", "Aundh", 2000);
+		accountRepository.save(account2);
+		AccountEntity account3 = new AccountEntity("Harsh Agrawal", "Baner", 4000);
+		accountRepository.save(account3);
+		AccountEntity account4 = new AccountEntity("Shital Agarkar ", "Baner", 10000); //10000 as she works for NICE
+		accountRepository.save(account4);
 
 	}
 
@@ -43,7 +49,28 @@ public class AccountServicePersistentImpl implements AccountService {
 	@Override
 	public Account getAccount(long accountNumber) {
 		AccountEntity accountEntity = accountRepository.findByAccountNumber(accountNumber);
-		return new Account(accountEntity.getAccountNumber(), accountEntity.getAccountHolderName(), accountEntity.getBranchName(), accountEntity.getBalance());
+		
+		Account account = null; 
+		if (accountEntity != null){
+			account = new Account(accountEntity.getAccountNumber(), accountEntity.getAccountHolderName(), accountEntity.getBranchName(), accountEntity.getBalance());
+		}
+		
+		return account ; 
+	}
+	
+	@Override
+	public List<Account> getAccountByName(String name) {
+		List<AccountEntity>  accountEntityList = accountRepository.findByAccountHolderName(name);
+		List<Account> accountList = new ArrayList<>(); 
+		
+		for (AccountEntity accountEntity : accountEntityList) {
+			accountList.add(new Account(accountEntity.getAccountNumber(), accountEntity.getAccountHolderName(), 
+					accountEntity.getBranchName(), accountEntity.getBalance()));
+		}
+
+		
+		
+		return accountList ; 
 	}
 
 	@Override

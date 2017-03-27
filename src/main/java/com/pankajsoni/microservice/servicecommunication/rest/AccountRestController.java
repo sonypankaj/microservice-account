@@ -10,21 +10,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.pankajsoni.microservice.servicecommunication.service.AccountServicePersistentImpl;
 
 @Named
 @Path("/")
 public class AccountRestController {
 
-//	// @Autowired
-//
-	private static AccountServicePersistentImpl accServicePersistentImpl = new AccountServicePersistentImpl();
-//
-//	static {
-//
-//		accServicePersistentImpl.createDummyAccounts();
-//
-//	}
+	private AccountServicePersistentImpl accServicePersistentImpl ;
+	
+	@Autowired
+	AccountRestController(AccountServicePersistentImpl accServicePersistentImpl){
+		this.accServicePersistentImpl = accServicePersistentImpl;
+		accServicePersistentImpl.createDummyAccounts();
+		
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -40,8 +41,19 @@ public class AccountRestController {
 		return accServicePersistentImpl.getAccount(accountNumber);
 
 	}
+	
+	@GET
+	@Path("account_by_name")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Account> getAccount(@QueryParam("account_by_name") String name) {
 
-	@PUT
+		return accServicePersistentImpl.getAccountByName(name);
+
+	}
+
+	// 	http://localhost:8081/create_account?accountHolderName=Pankaj Soni&branchName=pune&balance=100
+	
+	@GET
 	@Path("create_account")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Account createAccount(
